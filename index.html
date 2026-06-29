@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HayaCFO — Personal Finance Intelligence</title>
+  <meta name="description" content="A personal CFO for your entire financial life. Track net worth, cash flow and investments — then talk through them with an AI CFO who knows your full picture.">
+  <meta property="og:title" content="HayaCFO — Personal Finance Intelligence">
+  <meta property="og:description" content="A personal CFO for your entire financial life.">
+  <meta property="og:url" content="https://www.hayacfo.com">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #101C2E;
+      --cream:  #F7F3EA;
+      --card:   #EDE8DF;
+      --gold:   #C9A24A;
+      --muted:  #7A8699;
+      --body:   #454f60;
+      --border-dark: rgba(255,255,255,0.08);
+      --border-light: rgba(16,28,46,0.1);
+      --sans:   'IBM Plex Sans', sans-serif;
+      --serif:  'IBM Plex Serif', serif;
+      --mono:   'IBM Plex Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      background: var(--cream);
+      color: var(--navy);
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247,243,234,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-wordmark {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: -0.3px;
+      color: var(--navy);
+    }
+    .nav-wordmark span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--body);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-cta {
+      background: var(--navy) !important;
+      color: var(--cream) !important;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.82 !important; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Hero — cream ── */
+    .hero-section {
+      background: var(--cream);
+      padding: 88px 24px 80px;
+    }
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: clamp(34px, 4.5vw, 56px);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: var(--navy);
+      margin-bottom: 24px;
+    }
+    .hero p {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--body);
+      margin-bottom: 36px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 6px;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-ghost {
+      color: var(--body);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { color: var(--navy); }
+
+    /* ── App mock ── */
+    .hero-mock {
+      background: var(--navy);
+      border: 1px solid rgba(16,28,46,0.12);
+      border-radius: 14px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .mock-pill {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .mock-score-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .mock-score-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      color: var(--gold);
+      border: 1px solid rgba(201,162,74,0.4);
+      border-radius: 4px;
+      padding: 4px 9px;
+    }
+    .mock-networth {
+      font-weight: 700;
+      font-size: 38px;
+      letter-spacing: -1.5px;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .mock-delta {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #5cb87a;
+    }
+    .mock-divider { height: 1px; background: rgba(255,255,255,0.08); }
+    .mock-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .mock-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .mock-value {
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--cream);
+    }
+    .mock-chat {
+      background: rgba(201,162,74,0.08);
+      border: 1px solid rgba(201,162,74,0.18);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .mock-chat-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .mock-chat-text {
+      font-size: 13px;
+      line-height: 1.55;
+      color: rgba(247,243,234,0.8);
+      font-style: italic;
+    }
+
+    /* ── Trust bar ── */
+    .trust-bar {
+      background: var(--cream);
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .trust-bar-inner {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Features — light cream ── */
+    #features {
+      background: var(--cream);
+      padding: 96px 24px;
+    }
+    .section-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .section-heading {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: clamp(26px, 3vw, 42px);
+      letter-spacing: -0.5px;
+      color: var(--navy);
+      margin-bottom: 56px;
+      max-width: 520px;
+      line-height: 1.15;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .feature-card {
+      background: white;
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 32px 28px;
+      transition: box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      box-shadow: 0 4px 24px rgba(16,28,46,0.08);
+    }
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    .feature-title {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .feature-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--body);
+    }
+
+    /* ── How it works — light cream ── */
+    #how-it-works {
+      background: var(--cream);
+      padding: 96px 24px;
+    }
+    #how-it-works .section-heading {
+      color: var(--navy);
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 56px;
+    }
+    .step-number {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 48px;
+      letter-spacing: -2px;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .step-title {
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .step-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--body);
+    }
+
+    /* ── CTA — dark navy ── */
+    #cta {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 96px 24px;
+      text-align: center;
+    }
+    .cta-logo-mark {
+      margin: 0 auto 32px;
+      display: block;
+    }
+    #cta h2 {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: -1px;
+      color: var(--cream);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    #cta p {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+    .cta-domain {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 28px;
+      opacity: 0.6;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--cream);
+      border-top: 1px solid var(--border-light);
+      padding: 28px 24px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .footer-wordmark {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--navy);
+    }
+    .footer-wordmark span { color: var(--gold); }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; gap: 40px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; gap: 36px; }
+      .nav-links li:not(:last-child) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <svg width="24" height="24" viewBox="0 0 120 120" fill="none">
+          <rect x="25" y="30" width="16" height="60" rx="2" fill="#101C2E"/>
+          <rect x="79" y="30" width="16" height="60" rx="2" fill="#101C2E"/>
+          <rect x="25" y="52" width="70" height="16" rx="2" fill="#101C2E"/>
+          <rect x="79" y="30" width="16" height="16" rx="2" fill="#C9A24A"/>
+        </svg>
+        <span class="nav-wordmark">Haya<span>CFO</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="mailto:jamespross@me.com" class="nav-cta">Request access</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO (dark) -->
+  <section class="hero-section">
+    <div class="hero">
+      <div>
+        <p class="hero-eyebrow" style="color:#C9A24A;">Personal Finance Intelligence</p>
+        <h1>A personal CFO for your entire financial life.</h1>
+        <p>HayaCFO tracks your net worth, cash flow and investments — then talks you through them like a CFO who knows your full picture. For people who care about their money but don't want to live in a spreadsheet.</p>
+        <div class="hero-actions">
+          <a href="mailto:jamespross@me.com" class="btn-primary">Request early access</a>
+          <a href="#how-it-works" class="btn-ghost">See how it works →</a>
+        </div>
+      </div>
+      <div class="hero-mock">
+        <div class="mock-pill">Net Worth · GBP</div>
+        <div class="mock-score-row">
+          <div>
+            <div class="mock-networth">£1,284,500</div>
+            <div class="mock-delta">↑ +£12,400 this month</div>
+          </div>
+          <div class="mock-score-badge">CFO Score 82</div>
+        </div>
+        <div class="mock-divider"></div>
+        <div class="mock-row">
+          <span class="mock-label">Cash</span>
+          <span class="mock-value">£86,200</span>
+        </div>
+        <div class="mock-row">
+          <span class="mock-label">Portfolio</span>
+          <span class="mock-value">£612,800</span>
+        </div>
+        <div class="mock-divider"></div>
+        <div class="mock-chat">
+          <div class="mock-chat-label">CFO Chat</div>
+          <div class="mock-chat-text">"Your cash is up 4% — want me to move some into the balanced portfolio toward your house goal?"</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-bar-inner">
+      <span class="trust-item">Multi-currency · GBP / AED / USD / INR</span>
+      <span class="trust-item">Private by design · Your data stays yours</span>
+      <span class="trust-item">Powered by Claude</span>
+    </div>
+  </div>
+
+  <!-- FEATURES (light) -->
+  <section id="features">
+    <div class="container">
+      <p class="section-eyebrow" style="color:#C9A24A;">What you get</p>
+      <h2 class="section-heading">Everything a CFO would watch, watching for you.</h2>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          <div class="feature-title">Live dashboard</div>
+          <div class="feature-desc">Net worth, cash, liquid portfolio and illiquid assets — all at a glance, in any currency.</div>
+        </div>
+
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <div class="feature-title">CFO Chat</div>
+          <div class="feature-desc">An AI CFO with full context of your finances. It asks smart questions and gives direct answers.</div>
+        </div>
+
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          <div class="feature-title">CFO Score</div>
+          <div class="feature-desc">A weighted financial-health score across surplus, liquidity, goals and portfolio risk.</div>
+        </div>
+
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+          <div class="feature-title">Multi-currency</div>
+          <div class="feature-desc">See everything in GBP, AED, USD or any currency. FX rates refresh automatically each day.</div>
+        </div>
+
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+          <div class="feature-title">Goals tracker</div>
+          <div class="feature-desc">Visual progress on every goal — a house, a pension, a runway — kept honest over time.</div>
+        </div>
+
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <div class="feature-title">Life log</div>
+          <div class="feature-desc">Capture the financial moments that matter — your CFO proactively offers to log them for you.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS (dark) -->
+  <section id="how-it-works">
+    <div class="container">
+      <p class="section-eyebrow" style="color:#C9A24A;">How it works</p>
+      <h2 class="section-heading">Three steps from spreadsheet to clarity.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-title">Build your picture</div>
+          <div class="step-desc">Add your accounts, assets, goals and recurring cash flow. Property and pensions stay separate from your liquid net worth.</div>
+        </div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <div class="step-title">Get your CFO Score</div>
+          <div class="step-desc">See exactly where you stand across surplus, liquidity, goals and portfolio — one honest number, updated live.</div>
+        </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-title">Talk to your CFO</div>
+          <div class="step-desc">Ask anything. Get direct answers grounded in your real numbers — not generic advice from the internet.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA (dark) -->
+  <section id="cta">
+    <svg class="cta-logo-mark" width="36" height="36" viewBox="0 0 120 120" fill="none">
+      <rect x="25" y="30" width="16" height="60" rx="2" fill="#F7F3EA"/>
+      <rect x="79" y="30" width="16" height="60" rx="2" fill="#F7F3EA"/>
+      <rect x="25" y="52" width="70" height="16" rx="2" fill="#F7F3EA"/>
+      <rect x="79" y="30" width="16" height="16" rx="2" fill="#C9A24A"/>
+    </svg>
+    <h2>Take command of your financial life.</h2>
+    <p>Join the early-access list and be among the first to meet your personal CFO.</p>
+    <a href="mailto:jamespross@me.com" class="btn-primary">Request access</a>
+    <div class="cta-domain">HAYACFO.COM</div>
+  </section>
+
+  <!-- FOOTER (light) -->
+  <footer>
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">
+        <svg width="20" height="20" viewBox="0 0 120 120" fill="none">
+          <rect x="25" y="30" width="16" height="60" rx="2" fill="#101C2E"/>
+          <rect x="79" y="30" width="16" height="60" rx="2" fill="#101C2E"/>
+          <rect x="25" y="52" width="70" height="16" rx="2" fill="#101C2E"/>
+          <rect x="79" y="30" width="16" height="16" rx="2" fill="#C9A24A"/>
+        </svg>
+        <span class="footer-wordmark">Haya<span>CFO</span></span>
+      </a>
+      <span class="footer-copy">© 2026 HAYACFO · PERSONAL FINANCE INTELLIGENCE</span>
+    </div>
+  </footer>
+
+</body>
+</html>
