@@ -187,20 +187,23 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+      gap: 12px;
     }
     .mock-score-badge {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 0.5px;
       color: var(--gold);
       border: 1px solid rgba(201,162,74,0.4);
       border-radius: 4px;
-      padding: 4px 9px;
+      padding: 4px 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .mock-networth {
       font-weight: 700;
-      font-size: 38px;
-      letter-spacing: -1.5px;
+      font-size: 32px;
+      letter-spacing: -1px;
       color: var(--cream);
       line-height: 1;
       margin-bottom: 6px;
