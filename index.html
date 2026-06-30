@@ -66,7 +66,7 @@
     .nav-wordmark {
       font-family: var(--sans);
       font-weight: 700;
-      font-size: 19px;
+      font-size: 22px;
       letter-spacing: -0.3px;
       color: var(--navy);
     }
@@ -449,18 +449,18 @@
   <nav>
     <div class="nav-inner">
       <a href="/" class="nav-logo">
-        <svg width="24" height="24" viewBox="0 0 120 120" fill="none">
-          <rect x="25" y="30" width="16" height="60" rx="2" fill="#101C2E"/>
-          <rect x="79" y="30" width="16" height="60" rx="2" fill="#101C2E"/>
-          <rect x="25" y="52" width="70" height="16" rx="2" fill="#101C2E"/>
-          <rect x="79" y="30" width="16" height="16" rx="2" fill="#C9A24A"/>
+        <svg width="28" height="28" viewBox="0 0 120 120" fill="none">
+          <rect x="33" y="42" width="14" height="48" rx="1.5" fill="#101C2E"/>
+          <rect x="73" y="30" width="14" height="60" rx="1.5" fill="#101C2E"/>
+          <rect x="33" y="58" width="54" height="13" rx="1.5" fill="#101C2E"/>
+          <rect x="73" y="30" width="14" height="13" rx="1.5" fill="#C9A24A"/>
         </svg>
         <span class="nav-wordmark">Haya<span>CFO</span></span>
       </a>
       <ul class="nav-links">
         <li><a href="#features">Features</a></li>
         <li><a href="#how-it-works">How it works</a></li>
-        <li><a href="mailto:jamespross@me.com" class="nav-cta">Request access</a></li>
+        <li><a href="#" class="nav-cta" onclick="openAccessModal(event)">Request access</a></li>
       </ul>
     </div>
   </nav>
@@ -473,7 +473,7 @@
         <h1>A personal CFO for your entire financial life.</h1>
         <p>HayaCFO tracks your net worth, cash flow and investments — then talks you through them like a CFO who knows your full picture. For people who care about their money but don't want to live in a spreadsheet.</p>
         <div class="hero-actions">
-          <a href="mailto:jamespross@me.com" class="btn-primary">Request early access</a>
+          <a href="#" class="btn-primary" onclick="openAccessModal(event)">Request early access</a>
           <a href="#how-it-works" class="btn-ghost">See how it works →</a>
         </div>
       </div>
@@ -606,14 +606,14 @@
   <!-- CTA (dark) -->
   <section id="cta">
     <svg class="cta-logo-mark" width="36" height="36" viewBox="0 0 120 120" fill="none">
-      <rect x="25" y="30" width="16" height="60" rx="2" fill="#F7F3EA"/>
-      <rect x="79" y="30" width="16" height="60" rx="2" fill="#F7F3EA"/>
-      <rect x="25" y="52" width="70" height="16" rx="2" fill="#F7F3EA"/>
-      <rect x="79" y="30" width="16" height="16" rx="2" fill="#C9A24A"/>
+      <rect x="33" y="42" width="14" height="48" rx="1.5" fill="#F7F3EA"/>
+      <rect x="73" y="30" width="14" height="60" rx="1.5" fill="#F7F3EA"/>
+      <rect x="33" y="58" width="54" height="13" rx="1.5" fill="#F7F3EA"/>
+      <rect x="73" y="30" width="14" height="13" rx="1.5" fill="#C9A24A"/>
     </svg>
     <h2>Take command of your financial life.</h2>
     <p>Join the early-access list and be among the first to meet your personal CFO.</p>
-    <a href="mailto:jamespross@me.com" class="btn-primary">Request access</a>
+    <a href="#" class="btn-primary" onclick="openAccessModal(event)">Request access</a>
     <div class="cta-domain">HAYACFO.COM</div>
   </section>
 
@@ -622,16 +622,195 @@
     <div class="footer-inner">
       <a href="/" class="footer-logo">
         <svg width="20" height="20" viewBox="0 0 120 120" fill="none">
-          <rect x="25" y="30" width="16" height="60" rx="2" fill="#101C2E"/>
-          <rect x="79" y="30" width="16" height="60" rx="2" fill="#101C2E"/>
-          <rect x="25" y="52" width="70" height="16" rx="2" fill="#101C2E"/>
-          <rect x="79" y="30" width="16" height="16" rx="2" fill="#C9A24A"/>
+          <rect x="33" y="42" width="14" height="48" rx="1.5" fill="#101C2E"/>
+          <rect x="73" y="30" width="14" height="60" rx="1.5" fill="#101C2E"/>
+          <rect x="33" y="58" width="54" height="13" rx="1.5" fill="#101C2E"/>
+          <rect x="73" y="30" width="14" height="13" rx="1.5" fill="#C9A24A"/>
         </svg>
         <span class="footer-wordmark">Haya<span>CFO</span></span>
       </a>
       <span class="footer-copy">© 2026 HAYACFO · PERSONAL FINANCE INTELLIGENCE</span>
     </div>
   </footer>
+  <!-- ACCESS MODAL -->
+  <div id="access-modal-overlay" class="modal-overlay" onclick="closeAccessModalOnOverlay(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeAccessModal()" aria-label="Close">&times;</button>
+
+      <div id="modal-form-state">
+        <p class="hero-eyebrow" style="color:#C9A24A;">Early access</p>
+        <h3 class="modal-title">Request access to HayaCFO</h3>
+        <p class="modal-sub">Leave your email and we'll be in touch when there's a spot for you.</p>
+
+        <form id="access-form" action="https://formspree.io/f/xojolljb" method="POST" onsubmit="submitAccessForm(event)">
+          <label class="modal-label" for="modal-name">Name</label>
+          <input class="modal-input" type="text" id="modal-name" name="name" placeholder="Your name" required>
+
+          <label class="modal-label" for="modal-email">Email</label>
+          <input class="modal-input" type="email" id="modal-email" name="email" placeholder="you@email.com" required>
+
+          <label class="modal-label" for="modal-note">Anything else? (optional)</label>
+          <textarea class="modal-input" id="modal-note" name="message" rows="3" placeholder="What are you hoping to track?"></textarea>
+
+          <button type="submit" class="btn-primary modal-submit" id="modal-submit-btn">Request access</button>
+        </form>
+      </div>
+
+      <div id="modal-success-state" style="display:none;">
+        <p class="hero-eyebrow" style="color:#C9A24A;">Thank you</p>
+        <h3 class="modal-title">You're on the list.</h3>
+        <p class="modal-sub">We'll reach out to <strong id="modal-success-email"></strong> as soon as a spot opens up.</p>
+        <button class="btn-primary modal-submit" onclick="closeAccessModal()">Close</button>
+      </div>
+
+      <div id="modal-error-state" style="display:none;">
+        <p class="hero-eyebrow" style="color:#C9A24A;">Something went wrong</p>
+        <h3 class="modal-title">Couldn't submit that.</h3>
+        <p class="modal-sub">Please try again, or email us directly at <a href="mailto:jamespross@me.com" style="color:#101C2E;">jamespross@me.com</a>.</p>
+        <button class="btn-primary modal-submit" onclick="resetAccessForm()">Try again</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(16,28,46,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--cream);
+      border-radius: 14px;
+      padding: 40px;
+      max-width: 440px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(16,28,46,0.3);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      line-height: 1;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px;
+    }
+    .modal-close:hover { color: var(--navy); }
+    .modal-title {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: -0.5px;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .modal-sub {
+      font-size: 14px;
+      color: var(--body);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .modal-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+    .modal-label:first-of-type { margin-top: 0; }
+    .modal-input {
+      width: 100%;
+      border: 1px solid var(--border-light);
+      background: white;
+      border-radius: 7px;
+      padding: 11px 14px;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--navy);
+      resize: vertical;
+    }
+    .modal-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .modal-submit {
+      width: 100%;
+      border: none;
+      margin-top: 22px;
+      font-family: var(--sans);
+      cursor: pointer;
+    }
+    .modal-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  </style>
+
+  <script>
+    function openAccessModal(e) {
+      e.preventDefault();
+      document.getElementById('access-modal-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeAccessModal() {
+      document.getElementById('access-modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeAccessModalOnOverlay(e) {
+      if (e.target.id === 'access-modal-overlay') closeAccessModal();
+    }
+    function resetAccessForm() {
+      document.getElementById('modal-form-state').style.display = 'block';
+      document.getElementById('modal-success-state').style.display = 'none';
+      document.getElementById('modal-error-state').style.display = 'none';
+    }
+    async function submitAccessForm(e) {
+      e.preventDefault();
+      const form = document.getElementById('access-form');
+      const btn = document.getElementById('modal-submit-btn');
+      const email = document.getElementById('modal-email').value;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          document.getElementById('modal-success-email').textContent = email;
+          document.getElementById('modal-form-state').style.display = 'none';
+          document.getElementById('modal-success-state').style.display = 'block';
+          form.reset();
+        } else {
+          document.getElementById('modal-form-state').style.display = 'none';
+          document.getElementById('modal-error-state').style.display = 'block';
+        }
+      } catch (err) {
+        document.getElementById('modal-form-state').style.display = 'none';
+        document.getElementById('modal-error-state').style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Request access';
+      }
+    }
+  </script>
 
 </body>
 </html>
