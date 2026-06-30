@@ -61,11 +61,13 @@
     .nav-inner {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px;
-      height: 60px;
+      padding: 12px 24px;
+      min-height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .nav-logo {
       display: flex;
@@ -84,8 +86,9 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 36px;
+      gap: 24px;
       list-style: none;
+      flex-wrap: wrap;
     }
     .nav-links a {
       font-size: 14px;
@@ -449,7 +452,13 @@
       .hero { grid-template-columns: 1fr; gap: 40px; }
       .features-grid { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr; gap: 36px; }
+      .nav-inner { padding: 10px 16px; gap: 8px; }
+      .nav-logo { gap: 6px; }
+      .nav-wordmark { font-size: 17px; }
+      .nav-links { gap: 12px; }
       .nav-links li:nth-child(1), .nav-links li:nth-child(2) { display: none; }
+      .nav-links a { font-size: 13px; white-space: nowrap; }
+      .nav-cta { padding: 8px 14px !important; font-size: 13px !important; white-space: nowrap; }
     }
   </style>
 </head>
