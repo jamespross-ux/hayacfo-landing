@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HayaCFO — دليل البدء</title>
-  <meta name="description" content="دليل سريع للبدء باستخدام HayaCFO.">
-  <meta property="og:title" content="HayaCFO — دليل البدء">
   <meta property="og:image" content="https://www.hayacfo.com/og-image.png">
   <link rel="alternate" hreflang="en" href="https://www.hayacfo.com/guide">
   <link rel="alternate" hreflang="ar" href="https://www.hayacfo.com/guide/ar">
@@ -13,23 +11,19 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: #EDE8DF;
-      font-family: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
       padding: 40px 20px;
-      direction: rtl;
     }
     .guide-wrapper {
-      width: 100%;
       max-width: 794px;
+      margin: 0 auto;
       background: #F7F3EA;
       box-shadow: 0 4px 40px rgba(16,28,46,0.15);
       border-radius: 4px;
@@ -38,14 +32,19 @@
     @media print {
       body { background: none; padding: 0; }
       .guide-wrapper { box-shadow: none; border-radius: 0; max-width: 100%; }
+      .lang-bar { display: none; }
     }
     @media (max-width: 600px) {
       body { padding: 0; }
       .guide-wrapper { border-radius: 0; box-shadow: none; }
+      .lang-bar { padding: 8px 12px; }
     }
   </style>
 </head>
 <body>
+  <div style="max-width:794px; margin:0 auto 12px; display:flex; justify-content:flex-start; padding:0 4px;" dir="ltr">
+    <a href="/guide" style="font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:1px; color:#C9A24A; text-decoration:none; background:rgba(16,28,46,0.08); padding:6px 14px; border-radius:6px;">← English</a>
+  </div>
   <div class="guide-wrapper">
 
   <div dir="rtl" lang="ar" style="font-family: 'IBM Plex Sans Arabic', sans-serif; background: #F7F3EA; color: #101C2E;">
@@ -171,10 +170,6 @@
 
   </div>
 
-
-  <div style="text-align:center; padding: 20px; font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 13px; color: #7A8699;">
-    <a href="/guide" style="color: #C9A24A; text-decoration: none;">English version →</a>
-  </div>
   </div>
 </body>
 </html>
