@@ -40,6 +40,22 @@
       .lang-bar { padding: 8px 12px; }
     }
   </style>
+  <style>
+    @media (max-width: 600px) {
+      /* Stack feature cards to single column on mobile */
+      div[style*="display: grid"][style*="grid-template-columns: 1fr 1fr"],
+      div[style*="display:grid"][style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+      /* Tighten padding on mobile */
+      div[style*="padding: 44px 52px"],
+      div[style*="padding: 40px 52px"],
+      div[style*="padding: 48px 52px"] {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <div style="max-width:794px; margin:0 auto 12px; display:flex; justify-content:flex-end; padding:0 4px;">
